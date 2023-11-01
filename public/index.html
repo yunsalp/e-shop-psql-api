@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documentation of APIs for an e-commerce application</title>
+        <style type="text/CSS">
+            table, th, td {
+                border: 1px solid;
+                border-spacing: 0;
+            }
+            th,td { 
+                padding: 5px;
+            }
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: small;
+            }
+            span {
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Documentation of APIs for an e-commerce application</h1>
+        <h2>User API details:</h2>
+        <table width="90%">
+            <thead>
+                <tr>
+                    <th width="12%">Functionality</th>
+                    <th width="20%">API</th>
+                    <th width="23%">Access required</th>
+                    <th width="45%">Sample Request body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>User Signup<br><span>(Returns a JWT)</span></td>
+                    <td><span>POST /api/users</span></td>
+                    <td>None</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"full_name": "name123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"gender": "Male",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"address": {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"addressLine1": "123, street abc",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"city": "City123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"state": "Kerala",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"country": "India",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pincode": 695001<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"email": "name12@gmail.com",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"phone": "9988776655",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"username": "user123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"password": "pass123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"roles": ["Admin", "Customer"]<br>
+                    }
+                    <br><br>Notes!
+                    <br>1. "gender" should be either "Male" or "Female"
+                    <br>2. "roles" can be both "Admin" and "Customer" as in this example, or it could be just one of them</td>
+                </tr>
+                <tr>
+                    <td>User Login<br><span>(Returns a JWT)</span></td>
+                    <td><span>GET /api/users/login</span></td>
+                    <td>None</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"username": "user123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"password": "pass123"<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Get all users</td>
+                    <td><span>GET /api/users</span></td>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Get a user</td>
+                    <td><span>GET /api/users/<em>&lt;id&gt;</em></span></td>
+                    <td>User should be logged-in</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Update a user</td>
+                    <td><span>PATCH /api/users/<em>&lt;id&gt;</em></span></td>
+                    <td>User should be logged-in</td>
+                    <td>A part of the "User" data can be used, some examples below: <br><br>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"address": {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"addressLine1": "123, street abc",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"city": "City123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"state": "Kerala",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"country": "India",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pincode": 695001<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"email": "name12@gmail.com",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"phone": "9988776655"<br>
+                        }                        
+                        <br> ------------OR------------- <br>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"username": "user123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"password": "pass123"<br>
+                        }
+                        <br> ------------OR------------- <br>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"roles": ["Customer"]<br>
+                        }</td>
+                </tr>
+                <tr>
+                    <td>Delete a user</td>
+                    <td><span>DELETE /api/users/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Categories API details:</h2>
+        <table width="90%">
+            <thead>
+                <tr>
+                    <th width="12%">Functionality</th>
+                    <th width="20%">API</th>
+                    <th width="23%">Access required</th>
+                    <th width="45%">Sample Request body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Get all categories</td>
+                    <td><span>GET /api/products/categories</span></td>
+                    <td>None</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Get a category</td>
+                    <td><span>GET /api/products/categories/<em>&lt;id&gt;</em></span></td>
+                    <td>None</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Create a category</td>
+                    <td><span>POST /api/products/categories</span></td>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"name": "cat123"<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Update a category</td>
+                    <td><span>PATCH /api/products/categories/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"name": "cat123"<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Delete a category</td>
+                    <td><span>DELETE /api/products/categories/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Brands API details:</h2>
+        <table width="90%">
+            <thead>
+                <tr>
+                    <th width="12%">Functionality</th>
+                    <th width="20%">API</th>
+                    <th width="23%">Access required</th>
+                    <th width="45%">Sample Request body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Get all brands</td>
+                    <td><span>GET /api/products/brands</span></td>
+                    <td>None</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Get a brand</td>
+                    <td><span>GET /api/products/brands/<em>&lt;id&gt;</em></span></td>
+                    <td>None</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Create a brand</td>
+                    <td><span>POST /api/products/brands</span></td>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"name": "brand123"<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Update a brand</td>
+                    <td><span>PATCH /api/products/brands/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"name": "brand123"<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Delete a brand</td>
+                    <td><span>DELETE /api/products/brands/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Products API details:</h2>
+        <table width="90%">
+            <thead>
+                <tr>
+                    <th width="12%">Functionality</th>
+                    <th width="20%">API</th>
+                    <th width="23%">Access required</th>
+                    <th width="45%">Sample Request body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Get all products</td>
+                    <td><span>GET /api/products</span></td>
+                    <td>None</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Get a product</td>
+                    <td><span>GET /api/products/<em>&lt;id&gt;</em></span></td>
+                    <td>None</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Create a product</td>
+                    <td><span>POST /api/products</span></td>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"title": "Product title123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"category": "653185dc562e966e5de7a413",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"brand": "6533edec78bcd8e4f631a723",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"price": "3999",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"offer_price": "2900"<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Update a product</td>
+                    <td><span>PATCH /api/products/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>A part of the "Product" data can be used, some examples below: <br><br>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"title": "Product title123",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"price": "4299",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"offer_price": "3000"<br>
+                        }                                           
+                        <br> ------------OR------------- <br>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"category": "653185dc562e966e5de7a413"<br>
+                        }</td>
+                </tr>
+                <tr>
+                    <td>Delete a product</td>
+                    <td><span>DELETE /api/products/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>Orders API details:</h2>
+        <table width="90%">
+            <thead>
+                <tr>
+                    <th width="12%">Functionality</th>
+                    <th width="20%">API</th>
+                    <th width="23%">Access required</th>
+                    <th width="45%">Sample Request body</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Get all orders</td>
+                    <td><span>GET /api/orders</span></td>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Get an order</td>
+                    <td><span>GET /api/orders/<em>&lt;id&gt;</em></span></td>
+                    <td>User should be logged-in</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Create an order</td>
+                    <td><span>POST /api/orders</span></td>
+                    <td>User with "Customer" role should be logged-in</td>
+                    <td>{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"customer": "653a8e001dfa6879a6121cf4",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"order_date": "2023-10-25",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"order_line_items": [<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"product": "653a90871dfa6879a6121cff",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"quantity": 4<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"product": "653a8fb71dfa6879a6121cfa",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"quantity": 1,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"unit_price": 12000<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+                    }
+                    <br><br>Note! If "unit_price" is not provided, then the API will use the "offer_price" of the given product for calculation</td>
+                </tr>
+                <tr>
+                    <td>Update an order</td>
+                    <td><span>PATCH /api/orders/<em>&lt;id&gt;</em></span>
+                    <td>User with "Customer" role should be logged-in</td>
+                    <td>A part of the "Order" data can be used, some examples below: <br><br>
+                        {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"order_date": "2023-10-26"<br>
+                        }                                           
+                        <br> ------------OR------------- <br>
+                        {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"order_line_items": [<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"product": "653a90871dfa6879a6121cff",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"quantity": 4,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"unit_price": 1500<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"product": "653a8fb71dfa6879a6121cfa",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"quantity": 1,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"unit_price": 12000<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"product": "653b93a388f7d520a65ee10c",<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"quantity": 1,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            &nbsp;&nbsp;&nbsp;&nbsp;"unit_price": 11500<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;]<br>
+                    }</td>
+                </tr>
+                <tr>
+                    <td>Delete an order</td>
+                    <td><span>DELETE /api/orders/<em>&lt;id&gt;</em></span>
+                    <td>User with "Admin" role should be logged-in</td>
+                    <td>None</td>
+                </tr>
+            </tbody>
+        </table>        
+    </body>
+</html>
